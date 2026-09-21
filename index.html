@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#1b5e20" />
+  <title>Meu Repositor</title>
+
+  <link rel="manifest" href="manifest.json" />
+  <link rel="icon" href="assets/icons/icon-192.png" />
+  <link rel="apple-touch-icon" href="assets/icons/icon-192.png" />
+
+  <link rel="stylesheet" href="css/main.css" />
+  <link rel="stylesheet" href="css/layout.css" />
+  <link rel="stylesheet" href="css/components.css" />
+  <link rel="stylesheet" href="css/responsive.css" />
+</head>
+<body>
+
+  <div id="app">
+    <header id="app-header">
+      <h1 id="app-header-title">Meu Repositor</h1>
+    </header>
+
+    <main id="app-content">
+
+      <!-- Tela: Início -->
+      <section id="page-home" class="page" data-page="home">
+        <div class="card summary-card">
+          <span class="summary-label">Reposição pendente</span>
+          <span class="summary-value" id="home-summary-reposicao">—</span>
+        </div>
+        <div class="card summary-card">
+          <span class="summary-label">Validades próximas</span>
+          <span class="summary-value" id="home-summary-validades">—</span>
+        </div>
+        <div class="card summary-card">
+          <span class="summary-label">Produtos cadastrados</span>
+          <span class="summary-value" id="home-summary-produtos">—</span>
+        </div>
+        <button class="btn btn-primary btn-block" id="home-btn-escanear">
+          📷 Escanear produto
+        </button>
+      </section>
+
+      <!-- Tela: Reposição -->
+      <section id="page-reposicao" class="page is-hidden" data-page="reposicao">
+        <h2 class="section-title">Reposição</h2>
+        <div class="segmented-control" id="reposicao-tabs">
+          <button type="button" class="segmented-btn is-active" data-tab="pendentes">Pendentes</button>
+          <button type="button" class="segmented-btn" data-tab="concluidos">Concluídos</button>
+          <button type="button" class="segmented-btn" data-tab="falta">Falta</button>
+        </div>
+        <div id="reposicao-lista"></div>
+      </section>
+
+      <!-- Tela: Validades -->
+      <section id="page-validades" class="page is-hidden" data-page="validades">
+        <h2 class="section-title">Validades</h2>
+        <div id="validades-lista"></div>
+      </section>
+
+      <!-- Tela: Produtos -->
+      <section id="page-produtos" class="page is-hidden" data-page="produtos">
+        <h2 class="section-title">Produtos</h2>
+        <button class="btn btn-primary btn-block" id="produtos-btn-novo">
+          + Novo produto
+        </button>
+        <div class="produtos-filtros">
+          <input type="search" class="form-input" id="produtos-busca"
+                 placeholder="Pesquisar por nome..." aria-label="Pesquisar produto por nome" />
+          <select class="form-input" id="produtos-filtro-marca" aria-label="Filtrar por marca">
+            <option value="">Todas as marcas</option>
+          </select>
+        </div>
+        <div id="produtos-lista"></div>
+      </section>
+
+      <!-- Tela: Configurações -->
+      <section id="page-config" class="page is-hidden" data-page="config">
+        <h2 class="section-title">Configurações</h2>
+        <button class="btn btn-secondary btn-block" id="config-btn-historico">
+          📜 Ver histórico
+        </button>
+
+        <div class="settings-group">
+          <h3 class="settings-group-title">Backup</h3>
+          <button class="btn btn-primary btn-block" id="config-btn-backup">
+            💾 Fazer backup
+          </button>
+          <p class="settings-info" id="config-ultimo-backup"></p>
+          <button class="btn btn-secondary btn-block" id="config-btn-restaurar">
+            ♻️ Restaurar backup
+          </button>
+          <input
+            type="file"
+            id="config-input-restaurar"
+            accept="application/json,.json"
+            class="is-hidden"
+          />
+        </div>
+
+        <div class="settings-group">
+          <h3 class="settings-group-title">Diagnóstico</h3>
+          <button class="btn btn-secondary btn-block" id="config-btn-diagnostico">
+            🔧 Ver diagnóstico
+          </button>
+        </div>
+      </section>
+
+    </main>
+
+    <nav id="app-nav">
+      <button class="nav-item is-active" data-target="home">
+        <span class="nav-icon">🏠</span>
+        <span>Início</span>
+      </button>
+      <button class="nav-item" data-target="reposicao">
+        <span class="nav-icon">🛒</span>
+        <span>Reposição</span>
+      </button>
+      <button class="nav-item" data-target="validades">
+        <span class="nav-icon">📅</span>
+        <span>Validades</span>
+      </button>
+      <button class="nav-item" data-target="produtos">
+        <span class="nav-icon">🏷️</span>
+        <span>Produtos</span>
+      </button>
+      <button class="nav-item" data-target="config">
+        <span class="nav-icon">⚙️</span>
+        <span>Config</span>
+      </button>
+    </nav>
+  </div>
+
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>
