@@ -1,0 +1,109 @@
+/* css/layout.css
+   Estrutura geral da página: header, área de conteúdo e navegação inferior. */
+
+#app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+#app-header {
+  /* A altura total soma a altura de conteúdo de sempre (--header-height)
+     com a área segura do topo (notch/ilha dinâmica em iPhones — Etapa 14).
+     Como box-sizing é border-box, o padding-top é "extra" e não espreme
+     o título: a altura do conteúdo continua os mesmos 56px de sempre. */
+  height: calc(var(--header-height) + env(safe-area-inset-top, 0));
+  display: flex;
+  align-items: center;
+  padding: env(safe-area-inset-top, 0) var(--space-md) 0;
+  background-color: var(--color-primary);
+  color: #ffffff;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+#app-header h1 {
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+#app-content {
+  flex: 1;
+  padding: var(--space-md);
+  padding-bottom: calc(var(--nav-height) + var(--space-md));
+  max-width: 640px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+/* Transição suave ao trocar de aba (Etapa 14). Roda toda vez que uma
+   seção deixa de ter `.is-hidden` (display:none -> flex), porque uma
+   troca de display sempre conta como "entrada" para fins de animação
+   CSS — não precisa de nenhuma classe extra controlada pelo JS.
+   Desligada automaticamente por @media (prefers-reduced-motion). */
+.page:not(.is-hidden) {
+  animation: pagina-entrando 0.2s ease;
+}
+
+@keyframes pagina-entrando {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+#app-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: var(--nav-height);
+  background-color: var(--color-surface);
+  border-top: 1px solid var(--color-border);
+  display: flex;
+  z-index: 10;
+  padding-bottom: env(safe-area-inset-bottom, 0);
+}
+
+.nav-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  background: none;
+  border: none;
+  color: var(--color-text-muted);
+  font-size: 0.7rem;
+  min-height: var(--touch-target);
+  transition: transform 0.1s ease;
+}
+
+.nav-item .nav-icon {
+  font-size: 1.3rem;
+  line-height: 1;
+}
+
+.nav-item.is-active {
+  color: var(--color-primary);
+  font-weight: 600;
+}
+
+.section-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-text);
+  margin-bottom: var(--space-xs);
+}

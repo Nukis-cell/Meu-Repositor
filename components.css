@@ -1,0 +1,709 @@
+/* css/components.css
+   Estilos de componentes reutilizáveis (cards, botões, resumos). */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-sm);
+  min-height: var(--touch-target);
+  padding: 0 var(--space-lg);
+  border-radius: var(--radius);
+  border: none;
+  font-size: 1rem;
+  font-weight: 600;
+  transition: transform 0.1s ease;
+}
+
+.btn:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+/* Feedback tátil: um leve "encolher" ao tocar, em todos os elementos
+   tocáveis do app (Etapa 14 — dá a sensação de resposta imediata ao
+   toque, mesmo antes da ação terminar). */
+.btn:active:not(:disabled),
+.btn-icon:active:not(:disabled),
+.nav-item:active,
+.segmented-btn:active,
+.summary-card:active,
+.product-card:active {
+  transform: scale(0.97);
+}
+
+.btn:focus-visible,
+.btn-icon:focus-visible,
+.nav-item:focus-visible,
+.segmented-btn:focus-visible {
+  outline: 2px solid var(--color-primary-light);
+  outline-offset: 2px;
+}
+
+.btn-primary {
+  background-color: var(--color-primary);
+  color: #ffffff;
+}
+
+.btn-primary:active {
+  background-color: var(--color-primary-dark);
+}
+
+.btn-secondary {
+  background-color: var(--color-surface);
+  color: var(--color-primary);
+  border: 1px solid var(--color-primary);
+}
+
+.btn-block {
+  width: 100%;
+}
+
+.card {
+  background-color: var(--color-surface);
+  border-radius: var(--radius);
+  padding: var(--space-md);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+.summary-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  cursor: pointer;
+  transition: transform 0.1s ease;
+}
+
+.summary-card .summary-value {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--color-primary);
+}
+
+.summary-card .summary-label {
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+}
+
+.empty-state {
+  text-align: center;
+  color: var(--color-text-muted);
+  padding: var(--space-lg) var(--space-md);
+}
+
+/* Indicadores de status de validade (usados a partir da Etapa 8) */
+.badge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.badge-critico { background-color: var(--color-critico); }
+.badge-atencao { background-color: var(--color-atencao); color: #1a1a1a; }
+.badge-normal { background-color: var(--color-normal); }
+.badge-vencido { background-color: var(--color-vencido); }
+
+/* Formulários (usado em modais de cadastro/edição) */
+.form-label {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  margin-top: var(--space-md);
+  margin-bottom: var(--space-xs);
+}
+
+.form-input {
+  width: 100%;
+  min-height: var(--touch-target);
+  padding: 0 var(--space-md);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  font-size: 1rem;
+}
+
+.form-input:focus {
+  outline: 2px solid var(--color-primary-light);
+  outline-offset: 1px;
+}
+
+.form-error {
+  color: var(--color-critico);
+  font-size: 0.85rem;
+  margin-top: var(--space-sm);
+}
+
+#form-produto .btn {
+  margin-top: var(--space-lg);
+}
+
+/* Card de produto (lista da tela Produtos) */
+.produtos-filtros {
+  display: flex;
+  gap: var(--space-sm);
+  /* Fica fixa logo abaixo do header ao rolar a lista de produtos
+     (Etapa 14) — em listas longas, buscar/filtrar não deveria exigir
+     rolar de volta ao topo. O `top` soma a altura do header com a
+     área segura, então não fica escondida atrás dele em nenhum
+     aparelho. */
+  position: sticky;
+  top: calc(var(--header-height) + env(safe-area-inset-top, 0));
+  z-index: 5;
+  background-color: var(--color-bg);
+  padding: var(--space-sm) 0;
+}
+
+.produtos-filtros #produtos-busca {
+  flex: 2;
+}
+
+.produtos-filtros #produtos-filtro-marca {
+  flex: 1;
+  min-width: 0;
+}
+
+.product-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-md);
+  transition: transform 0.1s ease;
+}
+
+.product-card-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.product-card-nome {
+  font-weight: 600;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.product-card-detalhes {
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+}
+
+/* Resultado do escaneamento no modal de ação rápida (Início). */
+.scan-result {
+  margin-bottom: var(--space-md);
+  text-align: center;
+}
+
+.scan-result-nome {
+  font-weight: 600;
+  font-size: 1.05rem;
+}
+
+.scan-result-detalhes {
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+}
+
+#scan-btn-repor {
+  margin-bottom: var(--space-sm);
+}
+
+/* Aviso de possível produto duplicado (cadastro de novo produto). */
+.form-warning {
+  background: #fff8e1;
+  border: 1px solid var(--color-atencao);
+  border-radius: var(--radius);
+  padding: var(--space-md);
+  margin-top: var(--space-sm);
+  margin-bottom: var(--space-md);
+}
+
+.form-warning p {
+  margin: 0 0 var(--space-xs);
+}
+
+.form-warning .btn {
+  margin-top: var(--space-sm);
+}
+
+.product-card-actions {
+  display: flex;
+  gap: var(--space-xs);
+  flex-shrink: 0;
+}
+
+.btn-icon {
+  min-width: var(--touch-target);
+  min-height: var(--touch-target);
+  border: none;
+  background: none;
+  font-size: 1.1rem;
+  border-radius: var(--radius);
+  transition: transform 0.1s ease;
+}
+
+.btn-icon:active {
+  background-color: var(--color-bg);
+}
+
+#produtos-lista {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+/* Modal */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  /* Altura via "height" (não "inset: 0") de propósito: no celular,
+     quando o teclado virtual abre, o modal.js ajusta esse "height"
+     em JS para o tamanho da área realmente visível (visualViewport),
+     que encolhe com o teclado — diferente de "vh"/"inset", que em
+     boa parte dos Android não muda com o teclado e faz o teclado
+     simplesmente cobrir a parte de baixo do modal. Sem JS (fallback),
+     100vh mantém o comportamento de antes. */
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.45);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  z-index: 100;
+}
+
+.modal-box {
+  background: var(--color-surface);
+  width: 100%;
+  max-width: 480px;
+  border-radius: var(--radius) var(--radius) 0 0;
+  padding: var(--space-md);
+  max-height: 85vh;
+  overflow-y: auto;
+  /* Rolagem com inércia no iOS e sem "vazar" o gesto de rolagem para
+     o fundo da página quando o modal chega no topo/fim (Etapa 14). */
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.modal-header h3 {
+  font-size: 1rem;
+}
+
+.modal-close {
+  background: none;
+  border: none;
+  font-size: 1.1rem;
+  min-width: var(--touch-target);
+  min-height: var(--touch-target);
+}
+
+body.modal-open {
+  overflow: hidden;
+}
+
+@media (min-width: 768px) {
+  .modal-overlay {
+    align-items: center;
+  }
+  .modal-box {
+    border-radius: var(--radius);
+  }
+}
+
+/* Toast */
+#toast-container {
+  position: fixed;
+  bottom: calc(var(--nav-height) + var(--space-md));
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 200;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  width: 90%;
+  max-width: 400px;
+  align-items: center;
+}
+
+.toast {
+  background-color: #323232;
+  color: #ffffff;
+  padding: var(--space-sm) var(--space-md);
+  border-radius: var(--radius);
+  font-size: 0.9rem;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  max-width: 100%;
+  text-align: center;
+}
+
+.toast.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.toast-error {
+  background-color: var(--color-critico);
+}
+
+/* Lista de códigos de barras (modal de detalhes do produto) */
+.barcode-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  margin-bottom: var(--space-md);
+}
+
+.barcode-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: var(--color-bg);
+  border-radius: var(--radius);
+  padding: var(--space-sm) var(--space-md);
+}
+
+.barcode-code {
+  font-family: monospace;
+  font-size: 0.95rem;
+  letter-spacing: 0.02em;
+}
+
+#barcode-list-container .empty-state {
+  padding: var(--space-md) 0;
+}
+
+.product-card-info {
+  cursor: pointer;
+  flex: 1;
+  min-width: 0;
+}
+
+/* Leitor de código de barras (Etapa 6) */
+.scanner-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  z-index: 150;
+}
+
+.scanner-box {
+  background: var(--color-surface);
+  width: 100%;
+  max-width: 480px;
+  border-radius: var(--radius) var(--radius) 0 0;
+  padding: var(--space-md);
+  max-height: 90vh;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+}
+
+.scanner-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.scanner-header h3 {
+  font-size: 1rem;
+}
+
+.scanner-video-wrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  background: #000000;
+  border-radius: var(--radius);
+  overflow: hidden;
+  margin-top: var(--space-md);
+}
+
+.scanner-video-wrap video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.scanner-frame {
+  position: absolute;
+  inset: 22% 8%;
+  border: 3px solid #ffffff;
+  border-radius: var(--radius);
+  box-shadow: 0 0 0 999px rgba(0, 0, 0, 0.25);
+  pointer-events: none;
+}
+
+.scanner-hint {
+  text-align: center;
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+  margin: var(--space-sm) 0 var(--space-md);
+}
+
+#scanner-form-manual .btn {
+  margin-top: var(--space-sm);
+}
+
+body.scanner-open {
+  overflow: hidden;
+}
+
+@media (min-width: 768px) {
+  .scanner-overlay {
+    align-items: center;
+  }
+  .scanner-box {
+    border-radius: var(--radius);
+  }
+}
+
+/* Botões lado a lado no formulário de adicionar código (Produtos) */
+.form-actions-row {
+  display: flex;
+  gap: var(--space-sm);
+  margin-top: var(--space-sm);
+}
+
+.form-actions-row .btn {
+  flex: 1;
+}
+
+/* Alterna Pendentes/Concluídos (Reposição, Etapa 7) */
+.segmented-control {
+  display: flex;
+  background-color: var(--color-bg);
+  border-radius: var(--radius);
+  padding: 4px;
+  gap: 4px;
+}
+
+.segmented-btn {
+  flex: 1;
+  min-height: calc(var(--touch-target) - 8px);
+  border: none;
+  background: none;
+  border-radius: calc(var(--radius) - 4px);
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  transition: transform 0.1s ease, background-color 0.15s ease;
+}
+
+.segmented-btn.is-active {
+  background-color: var(--color-surface);
+  color: var(--color-primary);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.12);
+}
+
+/* Item da lista de Reposição (Etapa 7) */
+.reposicao-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-md);
+}
+
+.reposicao-item-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+  cursor: pointer;
+  flex: 1;
+}
+
+.reposicao-item-actions {
+  display: flex;
+  gap: var(--space-xs);
+  flex-shrink: 0;
+}
+
+.reposicao-item-nome {
+  font-weight: 600;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.reposicao-item-marca {
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+}
+
+.reposicao-item-data {
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+}
+
+#reposicao-lista {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+/* Item de validade (tela Validades e detalhes do produto — Etapa 8/9) */
+.expiration-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-sm);
+}
+
+.expiration-item-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+  flex: 1;
+}
+
+.expiration-item-info[data-action="detalhes"] {
+  cursor: pointer;
+}
+
+.expiration-item-nome {
+  font-weight: 600;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.expiration-item-data {
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+}
+
+.expiration-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  margin-bottom: var(--space-md);
+}
+
+#expiration-list-container .empty-state {
+  padding: var(--space-md) 0;
+}
+
+#validades-lista {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.btn-icon.is-active {
+  color: var(--color-primary);
+}
+
+/* Lista de eventos do Histórico (Etapa 11) */
+.history-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  margin: 0 0 var(--space-md);
+  padding: 0;
+  list-style: none;
+}
+
+.history-item {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-sm);
+  padding-bottom: var(--space-sm);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.history-item:last-child {
+  border-bottom: none;
+}
+
+.history-item-icone {
+  font-size: 1.1rem;
+  line-height: 1.4;
+}
+
+.history-item-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.history-item-descricao {
+  font-weight: 600;
+}
+
+.history-item-data {
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+}
+
+#config-btn-historico {
+  margin-bottom: var(--space-md);
+}
+
+.btn-icon:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+/* Agrupamento de configurações em seções (Backup — Etapa 12) */
+.settings-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  background-color: var(--color-surface);
+  border-radius: var(--radius);
+  padding: var(--space-md);
+}
+
+.settings-group-title {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+.settings-info {
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+  text-align: center;
+}
+
+/* Diagnóstico (Etapa 13) */
+.diag-section {
+  margin-bottom: var(--space-md);
+}
+
+.diag-section:last-of-type {
+  margin-bottom: var(--space-sm);
+}
+
+.diag-section .settings-group-title {
+  margin-bottom: var(--space-xs);
+}
+
+/* Dentro do diagnóstico, cada linha é uma informação diferente —
+   alinhada à esquerda, diferente do texto único e centralizado do
+   aviso de "Último backup" acima. */
+.diag-section .settings-info {
+  text-align: left;
+  margin: 2px 0;
+}
